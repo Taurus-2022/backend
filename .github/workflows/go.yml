@@ -1,4 +1,4 @@
-name: Go
+name: Serverless Go
 
 on:
   push:
@@ -19,7 +19,13 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -v ./...
+      run: cd src && go build -v ./...
 
-    - name: Test
-      run: go test -v ./...
+
+    - name: serverless scf deploy
+      uses: woodyyan/tencent-serverless-action@main
+      env: # 环境变量
+        STAGE: dev #您的部署环境
+        SERVERLESS_PLATFORM_VENDOR: tencent #serverless 境外默认为 aws，配置为腾讯
+        TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }} #您的腾讯云账号 sercret ID，请在Settings-Secrets中配置
+        TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }} #您的腾讯云账号 sercret key，请在Settings-Secrets中配置

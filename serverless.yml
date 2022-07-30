@@ -1,7 +1,9 @@
+app: taurus
 component: scf
-name: ap-guangzhou_helloworld_demo_go1
+name: api
+stage: dev
 inputs:
-  name: Go1-WebDemo
+  name: ${app}-${name}-${stage}
   src:
     src: ./src
   type: web
@@ -12,11 +14,11 @@ inputs:
   timeout: 3
   triggers:
      - type: apigw
-       name: SCF_API_SERVICE
+       name: SCF_API_DEV
        protocols:
         - http
         - https
-       environment: release
+       environment: test
        netTypes:
         - OUTER
        apis:
