@@ -1,3 +1,4 @@
 #!/bin/bash
-chmod +x ./taurus-backend
-./taurus-backend
+cp taurus-backend /tmp/
+chmod +x /tmp/taurus-backend
+/tmp/taurus-backend

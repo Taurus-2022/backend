@@ -12,15 +12,4 @@ inputs:
   region: ap-guangzhou
   memorySize: 512
   timeout: 3
-  triggers:
-     - type: apigw
-       name: SCF_API_DEV
-       protocols:
-        - http
-        - https
-       environment: test
-       netTypes:
-        - OUTER
-       apis:
-        - path: /
-          method: ANY
+  ignoreTriggers: true
