@@ -19,7 +19,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: cd src && go build && chmod 777 taurus-backend
+      run: cd src && go build
 
 
     - name: serverless scf deploy
