@@ -6,24 +6,22 @@ const (
 )
 
 const (
+	// NONE 未中奖
+	NONE = 0 + iota
 	// MEITUAN 美团
-	MEITUAN = 0 + iota
+	MEITUAN
 	// TENCENT 腾讯
 	TENCENT
 	// DIDI 青桔单车
 	DIDI
 
-	ErrorCodeOK      = 0
-	ErrorSignInvalid = 1000 + iota
-	ErrorTokenInvalid
-	ErrorAuthFailed
-	ErrorHttpInnerError
-	ErrorHttpParamInvalid
-	ErrorHttpResourceExists
-	ErrorHttpResourceNotFound
+	ErrorCodeOK           = 0
+	ErrorHttpParamInvalid = 1000 + iota
 	ErrorDbInnerError
-
 	ErrorCreateSignatureFailed
+	ErrorConsumeAwardFailed
+	ErrorCreateLotteryFailed
+	ErrorLotteryNoChance
 
 	HTTPMethodGet    string = "GET"
 	HTTPMethodPost   string = "POST"
@@ -36,14 +34,11 @@ const (
 var (
 	RespCodeErrorString = map[int]string{
 		ErrorCodeOK:                "Success",
-		ErrorTokenInvalid:          "Token invalid.",
-		ErrorHttpInnerError:        "Http inner error",
 		ErrorHttpParamInvalid:      "Http param invalid",
-		ErrorSignInvalid:           "Sign invalid.",
-		ErrorHttpResourceExists:    "Http resource already exists.",
-		ErrorHttpResourceNotFound:  "Http resource not found.",
-		ErrorAuthFailed:            "Authentication failed",
 		ErrorDbInnerError:          "Database inner error",
 		ErrorCreateSignatureFailed: "Create new signature failed, maybe it has been created?",
+		ErrorConsumeAwardFailed:    "Consume award failed, please contact administrator.",
+		ErrorCreateLotteryFailed:   "Create lottery failed, please try again later.",
+		ErrorLotteryNoChance:       "You have no chance to win lottery.",
 	}
 )

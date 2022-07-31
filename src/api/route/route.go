@@ -48,6 +48,8 @@ func methodMapper(group *gin.RouterGroup, method string) func(relativePath strin
 		return group.DELETE
 	case constant.HTTPMethodPatch:
 		return group.PATCH
+	case constant.HTTPMethodHead:
+		return group.HEAD
 	default:
 		return group.Any
 	}
