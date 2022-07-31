@@ -3,11 +3,16 @@
 GET {{baseUrl}}/ping
 
 ### 创建签名
-POST {{baseUrl}}/signatures
-
 # 响应示例：
 # success
 # 创建请求不返回任何值，请根据状态码判断是否成功
+POST {{baseUrl}}/signatures
+Content-Type: application/json
+
+{
+  "phone": "18019066767",
+  "street": "大虫街道"
+}
 
 ### 获取签名人数
 GET {{baseUrl}}/signatures/count?street="大冲街道"
