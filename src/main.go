@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"log"
+	"taurus-backend/route"
 )
 
 var (
@@ -13,18 +13,12 @@ var (
 )
 
 func main() {
-	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		log.Println("Hello World")
-		_, err := rw.Write([]byte("Hello World"))
-		if err != nil {
-			log.Fatal("Error writing to client", err)
-			return
-		}
-	})
+	var r = gin.Default()
+	route.InitAllRouters(r)
+	err := r.Run(fmt.Sprintf("%s:%d", host_, port_))
 	log.Println("server starting...")
-	err := http.ListenAndServe(fmt.Sprintf("%s:%d", host_, port_), nil)
 	if err != nil {
 		log.Fatal("setup server fatal:", err)
+		return
 	}
-
 }
