@@ -23,6 +23,6 @@ func WinLottery(c *gin.Context) {
 		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	resp := &response.WinLotteryResponse{IsWinLottery: true, LotteryType: constant.MEITUAN}
+	resp := &response.WinLotteryResponse{IsWinLottery: true, AwardType: constant.MEITUAN}
 	c.JSON(200, resp)
 }

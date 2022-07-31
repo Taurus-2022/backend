@@ -32,12 +32,12 @@ GET {{baseUrl}}/lotteries/chance?phone=18990909987
 # 响应示例：
 #{
 #  "isWinLottery": true,
-#  "lotteryType": 0
+#  "awardType": 0
 #}
 POST {{baseUrl}}/lotteries
 Content-Type: application/json
 
 {
-  "phone1": "18019066767"
+  "phone": "18019066767"
 }
 

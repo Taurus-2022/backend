@@ -6,5 +6,5 @@ type GetLotteryChanceResponse struct {
 
 type WinLotteryResponse struct {
 	IsWinLottery bool `json:"isWinLottery"`
-	LotteryType  int  `json:"lotteryType"`
+	AwardType    int  `json:"awardType"`
 }
