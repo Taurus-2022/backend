@@ -1,6 +1,13 @@
 package constant
 
 const (
+	// MEITUAN 美团
+	MEITUAN = 0 + iota
+	// TENCENT 腾讯
+	TENCENT
+	// DIDI 青桔单车
+	DIDI
+
 	ErrorCodeOK      = 0
 	ErrorSignInvalid = 1000 + iota
 	ErrorTokenInvalid

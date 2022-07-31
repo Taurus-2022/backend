@@ -1,5 +1,5 @@
 package response
 
-type Count struct {
+type GetSignatureCountResponse struct {
 	Count int `json:"count"`
 }

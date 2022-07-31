@@ -11,7 +11,8 @@ func CreateSignature(c *gin.Context) {
 	r := &request.CreateSignatureCountRequest{}
 	err := c.ShouldBindJSON(r)
 	if err != nil {
-		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, nil))
+		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
+		return
 	}
 	c.String(200, "success")
 }
@@ -20,8 +21,8 @@ func GetSignatureCount(c *gin.Context) {
 	r := &request.GetSignatureCountRequest{}
 	err := c.BindQuery(r)
 	if err != nil {
-		c.AbortWithStatus(400)
+		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	c.JSON(200, &response.Count{Count: 100})
+	c.JSON(200, &response.GetSignatureCountResponse{Count: 100})
 }

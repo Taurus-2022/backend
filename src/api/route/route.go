@@ -64,6 +64,7 @@ func InitAllRouters(r *gin.Engine) {
 	nodes := []*NodeRoute{
 		getPingRoutes(),
 		getSignaturesRoutes(),
+		getLotteriesRoutes(),
 	}
 	mountRoutes(r, nodes...)
 }

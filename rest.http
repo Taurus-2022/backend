@@ -3,8 +3,6 @@
 GET {{baseUrl}}/ping
 
 ### 创建签名
-# 响应示例：
-# success
 # 创建请求不返回任何值，请根据状态码判断是否成功
 POST {{baseUrl}}/signatures
 Content-Type: application/json
@@ -15,9 +13,31 @@ Content-Type: application/json
 }
 
 ### 获取签名人数
-GET {{baseUrl}}/signatures/count?street="大冲街道"
+GET {{baseUrl}}/signatures/count?street=大冲街道
 
 # 响应示例：
 #{
 #    "count": 100
 #}
+
+### 获取能否参与抽奖
+GET {{baseUrl}}/lotteries/chance?phone=18990909987
+
+# 响应示例：
+#{
+#  "canParticipateLottery": true
+#}
+
+### 抽奖
+# 响应示例：
+#{
+#  "isWinLottery": true,
+#  "lotteryType": 0
+#}
+POST {{baseUrl}}/lotteries
+Content-Type: application/json
+
+{
+  "phone1": "18019066767"
+}
+
