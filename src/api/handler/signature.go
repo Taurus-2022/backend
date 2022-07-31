@@ -37,7 +37,7 @@ func GetSignatureCount(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
 		return
 	}
-	c.JSON(200, &response.GetSignatureCountResponse{Count: total})
+	c.JSON(http.StatusOK, &response.GetSignatureCountResponse{Count: total})
 }
 
 func GetUserIsSigned(c *gin.Context) {
@@ -52,6 +52,5 @@ func GetUserIsSigned(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
 		return
 	}
-	isSigned := total > 0
-	c.JSON(200, &response.GetUserIsSignedResponse{IsSigned: isSigned})
+	c.JSON(http.StatusOK, &response.GetUserIsSignedResponse{IsSigned: total > 0})
 }
