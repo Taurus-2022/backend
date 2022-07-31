@@ -21,6 +21,7 @@ const (
 	ErrorHttpParamInvalid
 	ErrorHttpResourceExists
 	ErrorHttpResourceNotFound
+	ErrorDbInnerError
 
 	HTTPMethodGet    string = "GET"
 	HTTPMethodPost   string = "POST"
@@ -40,5 +41,6 @@ var (
 		ErrorHttpResourceExists:   "Http resource already exists.",
 		ErrorHttpResourceNotFound: "Http resource not found.",
 		ErrorAuthFailed:           "Authentication failed",
+		ErrorDbInnerError:         "Database inner error",
 	}
 )

@@ -2,6 +2,10 @@
 ### 心跳包
 GET {{baseUrl}}/ping
 
+
+### 查询是否已经签名
+GET {{baseUrl}}/signatures/status?phone=18019009090
+
 ### 创建签名
 # 创建请求不返回任何值，请根据状态码判断是否成功
 POST {{baseUrl}}/signatures

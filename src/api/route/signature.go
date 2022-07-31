@@ -9,6 +9,7 @@ func getSignaturesRoutes() *NodeRoute {
 	routers := []*Route{
 		NewRoute(constant.HTTPMethodPost, "/", handler.CreateSignature),
 		NewRoute(constant.HTTPMethodGet, "/count", handler.GetSignatureCount),
+		NewRoute(constant.HTTPMethodGet, "/status", handler.GetUserIsSigned),
 	}
 
 	return NewNodeRoute("signatures", routers...)
