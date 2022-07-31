@@ -63,6 +63,7 @@ func mountRoutes(r *gin.Engine, routers ...*NodeRoute) {
 func InitAllRouters(r *gin.Engine) {
 	nodes := []*NodeRoute{
 		getPingRoutes(),
+		getSignaturesRoutes(),
 	}
 	mountRoutes(r, nodes...)
 }

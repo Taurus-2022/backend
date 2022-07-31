@@ -1,0 +1,9 @@
+
+### 心跳包
+GET {{baseUrl}}/ping
+
+### 创建签名
+POST {{baseUrl}}/signatures
+
+### 获取签名人数
+GET {{baseUrl}}/signatures/count

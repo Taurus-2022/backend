@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
-	"taurus-backend/route"
+	"taurus-backend/api/route"
 )
 
 var (
