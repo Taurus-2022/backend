@@ -4,7 +4,7 @@ GET {{baseUrl}}/ping
 
 
 ### 查询是否已经签名
-GET {{baseUrl}}/signatures/status?phone=18019009090
+GET {{baseUrl}}/signatures/status?phone=3
 
 ### 创建签名
 # 创建请求不返回任何值，请根据状态码判断是否成功
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### 获取签名人数
-GET {{baseUrl}}/signatures/count?street=大冲街道
+GET {{baseUrl}}/signatures/count?street=大冲
 
 # 响应示例：
 #{

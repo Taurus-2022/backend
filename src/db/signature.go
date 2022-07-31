@@ -10,3 +10,21 @@ func GetSignatureCountByPhone(phone string) (total int, err error) {
 	}
 	return total, nil
 }
+
+func GetSignatureCountByStreet(street string) (total int, err error) {
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM signature WHERE street = ?", street).Scan(&total)
+	if err != nil {
+		log.Printf("get count signature by street fail: %v ,err: %v", street, err)
+		return total, err
+	}
+	return total, nil
+}
+
+func GetAllSignatureCount() (total int, err error) {
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM signature").Scan(&total)
+	if err != nil {
+		log.Printf("get all count signature fail, err: %v", err)
+		return total, err
+	}
+	return total, nil
+}

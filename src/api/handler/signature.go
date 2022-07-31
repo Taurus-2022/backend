@@ -26,7 +26,18 @@ func GetSignatureCount(c *gin.Context) {
 		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	c.JSON(200, &response.GetSignatureCountResponse{Count: 100})
+
+	var total int
+	if "" == r.Street {
+		total, err = db.GetAllSignatureCount()
+	} else {
+		total, err = db.GetSignatureCountByStreet(r.Street)
+	}
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
+		return
+	}
+	c.JSON(200, &response.GetSignatureCountResponse{Count: total})
 }
 
 func GetUserIsSigned(c *gin.Context) {
