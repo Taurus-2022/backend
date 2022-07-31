@@ -19,7 +19,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: cd src && go mod tidy && go build -v ./...
+      run: cd src && go mod tidy && go build
 
 
     - name: serverless scf deploy
