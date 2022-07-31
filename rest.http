@@ -6,4 +6,4 @@ GET {{baseUrl}}/ping
 POST {{baseUrl}}/signatures
 
 ### 获取签名人数
-GET {{baseUrl}}/signatures/count
+GET {{baseUrl}}/signatures/count?street="大冲街道"
