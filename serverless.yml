@@ -1,7 +1,7 @@
 app: taurus
 component: scf
 name: api
-stage: dev
+stage: ${env:STAGE}
 inputs:
   name: ${app}-${name}-${stage}
   src:
@@ -13,3 +13,11 @@ inputs:
   memorySize: 512
   timeout: 3
   ignoreTriggers: true
+  environment:
+    variables: #  环境变量对象
+      stage: ${stage}
+      DB_HOST: ${env:DB_HOST}
+      DB_PORT: ${env:DB_PORT}
+      DB_USER: ${env:DB_USER}
+      DB_PASSWORD: ${env:DB_PASSWORD}
+      DB_NAME: ${env:DB_NAME}
