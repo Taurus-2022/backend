@@ -28,3 +28,12 @@ func GetAllSignatureCount() (total int, err error) {
 	}
 	return total, nil
 }
+
+func CreateSignature(phone, street string) (err error) {
+	_, err = GetDB().Exec("INSERT INTO signature (phone, street) VALUES (?, ?)", phone, street)
+	if err != nil {
+		log.Printf("create signature fail, err: %v", err)
+		return err
+	}
+	return nil
+}

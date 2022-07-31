@@ -23,6 +23,8 @@ const (
 	ErrorHttpResourceNotFound
 	ErrorDbInnerError
 
+	ErrorCreateSignatureFailed
+
 	HTTPMethodGet    string = "GET"
 	HTTPMethodPost   string = "POST"
 	HTTPMethodPut    string = "PUT"
@@ -33,14 +35,15 @@ const (
 
 var (
 	RespCodeErrorString = map[int]string{
-		ErrorCodeOK:               "Success",
-		ErrorTokenInvalid:         "Token invalid.",
-		ErrorHttpInnerError:       "Http inner error",
-		ErrorHttpParamInvalid:     "Http param invalid",
-		ErrorSignInvalid:          "Sign invalid.",
-		ErrorHttpResourceExists:   "Http resource already exists.",
-		ErrorHttpResourceNotFound: "Http resource not found.",
-		ErrorAuthFailed:           "Authentication failed",
-		ErrorDbInnerError:         "Database inner error",
+		ErrorCodeOK:                "Success",
+		ErrorTokenInvalid:          "Token invalid.",
+		ErrorHttpInnerError:        "Http inner error",
+		ErrorHttpParamInvalid:      "Http param invalid",
+		ErrorSignInvalid:           "Sign invalid.",
+		ErrorHttpResourceExists:    "Http resource already exists.",
+		ErrorHttpResourceNotFound:  "Http resource not found.",
+		ErrorAuthFailed:            "Authentication failed",
+		ErrorDbInnerError:          "Database inner error",
+		ErrorCreateSignatureFailed: "Create new signature failed, maybe it has been created?",
 	}
 )

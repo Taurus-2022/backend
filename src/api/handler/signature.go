@@ -16,14 +16,19 @@ func CreateSignature(c *gin.Context) {
 		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	c.String(200, "success")
+	err = db.CreateSignature(r.Phone, r.Street)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorCreateSignatureFailed, err.Error()))
+		return
+	}
+	c.String(http.StatusOK, "success")
 }
 
 func GetSignatureCount(c *gin.Context) {
 	r := &request.GetSignatureCountRequest{}
 	err := c.BindQuery(r)
 	if err != nil {
-		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
+		c.AbortWithStatusJSON(http.StatusBadRequest, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
 
