@@ -13,7 +13,7 @@ var (
 )
 
 func main() {
-	var r = gin.Default()
+	r := gin.Default()
 	route.InitAllRouters(r)
 	err := r.Run(fmt.Sprintf("%s:%d", host_, port_))
 	log.Println("server starting...")
