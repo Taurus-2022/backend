@@ -1,6 +1,11 @@
 package constant
 
 const (
+	Stage      string = "stage"
+	LocalStage string = ""
+)
+
+const (
 	// MEITUAN 美团
 	MEITUAN = 0 + iota
 	// TENCENT 腾讯
