@@ -27,15 +27,15 @@ inputs:
   events:
     - apigw:
         parameters:
-          serviceName: SCF_API_DEV
-          serviceId: service-8gc6a5c6
+          serviceName: ${env:API_GW_SERVICE_NAME}
+          serviceId: ${env:API_GW_SERVICE_ID}
           protocols:
             - http
             - https
           netTypes:
             - OUTER
-          description: the serverless service
-          environment: test
+          environment: ${env:API_ENV}
           endpoints:
             - path: /
               method: ANY
+              apiName: ${app}-${name}-${stage}
