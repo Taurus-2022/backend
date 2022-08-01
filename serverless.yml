@@ -34,7 +34,7 @@ inputs:
             - https
           netTypes:
             - OUTER
-          environment: ${env:API_ENV}
+          environment: release
           endpoints:
             - path: /
               method: ANY
