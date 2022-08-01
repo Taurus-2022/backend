@@ -8,7 +8,8 @@ GET {{baseUrl}}/signatures/status?phone=3
 
 ### 创建签名
 # 创建请求不返回任何值，请根据状态码判断是否成功
-POST {{baseUrl}}/signatures
+# @no-redirect
+POST {{baseUrl}}/signatures/
 Content-Type: application/json
 
 {
