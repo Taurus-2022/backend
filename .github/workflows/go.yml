@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
+      url: https://api.taurus.cd.dev.peanut996.cn
     steps:
       - uses: actions/checkout@v3
 
@@ -61,6 +62,7 @@ jobs:
       - deploy-dev
     environment:
       name: prod
+      url: https://api.taurus.cd.prod.peanut996.cn
     steps:
       - uses: actions/checkout@v3
 
