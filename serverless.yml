@@ -36,3 +36,6 @@ inputs:
             - OUTER
           description: the serverless service
           environment: test
+          endpoints:
+            - path: /
+              method: ANY
