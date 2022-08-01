@@ -44,6 +44,7 @@ jobs:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           # repository secrets
+          VPC_ID: ${{ secrets.VPC_ID }}
           API_GW_SERVICE_NAME: ${{ secrets.API_GW_SERVICE_NAME }}
           API_GW_SERVICE_ID: ${{ secrets.API_GW_SERVICE_ID }}
           # envirmonent secrets
@@ -81,6 +82,7 @@ jobs:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           # repository secrets
+          VPC_ID: ${{ secrets.VPC_ID }}
           API_GW_SERVICE_NAME: ${{ secrets.API_GW_SERVICE_NAME }}
           API_GW_SERVICE_ID: ${{ secrets.API_GW_SERVICE_ID }}
           # envirmonent secrets
