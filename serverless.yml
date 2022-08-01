@@ -12,7 +12,7 @@ inputs:
   region: ap-guangzhou
   memorySize: 512
   timeout: 3
-  ignoreTriggers: true
+  # ignoreTriggers: true
   environment:
     variables: #  环境变量对象
       stage: ${stage}
@@ -24,3 +24,15 @@ inputs:
   vpc:
     vpcId: ${env:VPC_ID}
     subnetId: ${env:SUBNET_ID}
+  events:
+    - apigw:
+        parameters:
+          serviceName: SCF_API_DEV
+          serviceId: service-8gc6a5c6
+          protocols:
+            - http
+            - https
+          netTypes:
+            - OUTER
+          description: the serverless service
+          environment: test
