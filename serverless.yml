@@ -38,4 +38,5 @@ inputs:
           endpoints:
             - path: /
               method: ANY
+              enableCORS: true
               apiName: ${app}-${name}-${stage}
