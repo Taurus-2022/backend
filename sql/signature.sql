@@ -8,6 +8,6 @@ CREATE TABLE `signature`
     `deleted`     TINYINT(1)            DEFAULT 0 COMMENT '是否被删除',
     `delete_time` DATETIME              DEFAULT NULL COMMENT '删除时间',
 
-    UNIQUE KEY `idx_phone` (phone) using BTREE
+    KEY `idx_phone` (phone) using BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
