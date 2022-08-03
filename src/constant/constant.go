@@ -26,6 +26,8 @@ const (
 	ErrorConsumeAwardFailed
 	// ErrorCreateLotteryFailed 创建抽奖记录失败
 	ErrorCreateLotteryFailed
+	// ErrorHasWinLottery 已中奖过
+	ErrorHasWinLottery
 	// ErrorTodayNoMoreLotteryChance 今天不能再抽奖
 	ErrorTodayNoMoreLotteryChance
 	// ErrorNoMoreAward 所有奖券被抽完
@@ -53,5 +55,6 @@ var (
 		ErrorTodayNoMoreLotteryChance: "You have no chance to win lottery today.",
 		ErrorNoMoreAward:              "All award has been used up.",
 		ErrorWinLotteryFailed:         "Win lottery failed, please try again later.",
+		ErrorHasWinLottery:            "You have already win lottery.",
 	}
 )

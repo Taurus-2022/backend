@@ -2,6 +2,7 @@ package response
 
 type GetLotteryChanceResponse struct {
 	CanParticipateLottery bool `json:"canParticipateLottery"`
+	HasWinLottery         bool `json:"hasWinLottery"`
 }
 
 type WinLotteryResponse struct {
