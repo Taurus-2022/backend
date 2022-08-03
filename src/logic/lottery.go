@@ -127,7 +127,7 @@ func GetCanDoLottery(phone string) (errCode int) {
 	if err != nil {
 		return constant.ErrorWinLotteryFailed
 	}
-	if total > 1 {
+	if total > 0 {
 		// 今天没有抽奖机会了
 		return constant.ErrorTodayNoMoreLotteryChance
 	}

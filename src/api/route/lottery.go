@@ -8,7 +8,7 @@ import (
 func getLotteriesRoutes() *NodeRoute {
 	routers := []*Route{
 		NewRoute(constant.HTTPMethodGet, "/chance", handler.GetLotteryChance),
-		NewRoute(constant.HTTPMethodPost, "/", handler.WinLottery),
+		NewRoute(constant.HTTPMethodPost, "", handler.WinLottery),
 	}
 
 	return NewNodeRoute("lotteries", routers...)

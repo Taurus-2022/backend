@@ -21,8 +21,8 @@ func (e StatusError) StatusCode() int {
 	return e.statusCode
 }
 
-func (e StatusError) Error() string {
-	return e.err.Error()
+func (e StatusError) Error() error {
+	return e.err
 }
 
 func (e StatusError) IsNotOK() bool {

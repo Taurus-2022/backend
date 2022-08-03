@@ -47,6 +47,12 @@ func WinLottery(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, response.ToErrorResponse(err))
 			return
 		}
+		c.AbortWithStatusJSON(http.StatusBadRequest, response.ToErrorResponse(err))
+		return
 	}
-	c.JSON(http.StatusOK, response.WinLotteryResponse{IsWinLottery: isWinLottery, AwardType: awardType})
+	resp := &response.WinLotteryResponse{IsWinLottery: isWinLottery}
+	if isWinLottery {
+		resp.AwardType = awardType
+	}
+	c.JSON(http.StatusOK, resp)
 }

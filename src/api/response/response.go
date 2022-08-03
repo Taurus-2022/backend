@@ -17,5 +17,5 @@ func GetErrorResponse(code int, data interface{}) *BaseResponse {
 }
 
 func ToErrorResponse(err constant.StatusError) *BaseResponse {
-	return GetErrorResponse(err.StatusCode(), err)
+	return GetErrorResponse(err.StatusCode(), err.Error())
 }
