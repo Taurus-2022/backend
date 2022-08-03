@@ -106,7 +106,15 @@ func GetMultiple() float64 {
 	return multiple
 }
 
+// GetCanDoLottery 校验是否能抽奖
 func GetCanDoLottery(phone string) (errCode int) {
+	hasWinLottery, err := HasWinLottery(phone)
+	if err != nil {
+		return constant.ErrorWinLotteryFailed
+	}
+	if hasWinLottery {
+		return constant.ErrorHasWinLottery
+	}
 	remainAward, err := db.GetRemainAwardCount()
 	if err != nil {
 		return constant.ErrorWinLotteryFailed
@@ -135,4 +143,12 @@ func CreateAwardLottery(phone string, isWinLottery bool, awardType int) error {
 		// TODO 异步发送短信
 	}(awardCode)
 	return nil
+}
+
+func HasWinLottery(phone string) (bool, error) {
+	total, err := db.GetWinLotteryCountByPhone(phone)
+	if err != nil {
+		return false, err
+	}
+	return total > 0, nil
 }
