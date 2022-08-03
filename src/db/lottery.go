@@ -64,7 +64,7 @@ func CreateAwardLottery(phone string, isWinLottery bool, awardType int) (string,
 	awardCode := ""
 	var version int
 	// 需要判断
-	for i := 0; i < 0xff; i++ {
+	for {
 		err := tx.QueryRow("SELECT code,version FROM award WHERE type = ? AND is_used = 0 LIMIT 1", awardType).Scan(&awardCode, &version)
 		if err != nil {
 			_ = tx.Rollback()
@@ -72,7 +72,7 @@ func CreateAwardLottery(phone string, isWinLottery bool, awardType int) (string,
 			return "", err
 		}
 
-		res, err := tx.Exec("UPDATE award SET is_used = 1 AND version = ? WHERE code = ? AND version = ?", version+1, awardCode, version)
+		res, err := tx.Exec("UPDATE award SET is_used = 1, version = ? WHERE code = ? AND version = ?", version+1, awardCode, version)
 		if err != nil {
 			_ = tx.Rollback()
 			return "", err

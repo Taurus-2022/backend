@@ -66,12 +66,20 @@ func CalculateWinLottery() (isWinLottery bool, awardType int, err constant.Statu
 		// 没有中奖
 		return false, constant.NONE, constant.NewOKStatusError()
 	}
-	remainAward, error := GetRemainAwardCountByType(awardType)
-	if error != nil {
-		return false, constant.NONE, constant.NewStatusError(constant.ErrorWinLotteryFailed, error)
+	todayRemainAward, dbError := GetRemainAwardCountByType(awardType)
+	if dbError != nil {
+		return false, constant.NONE, constant.NewStatusError(constant.ErrorWinLotteryFailed, dbError)
 	}
-	if remainAward < 1 {
-		// 该类奖券已经抽完，算作没抽中
+	if todayRemainAward < 1 {
+		// 该类奖券今天抽完，算作没抽中
+		return false, constant.NONE, constant.NewOKStatusError()
+	}
+	inventory, dbError := db.GetRemainAwardInventoryCountByType(awardType)
+	if dbError != nil {
+		return false, constant.NONE, constant.NewStatusError(constant.ErrorWinLotteryFailed, dbError)
+	}
+	if inventory < 1 {
+		// 该类奖券库存不足，算作没抽中
 		return false, constant.NONE, constant.NewOKStatusError()
 	}
 	return true, awardType, constant.NewOKStatusError()

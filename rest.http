@@ -44,6 +44,6 @@ POST {{baseUrl}}/lotteries
 Content-Type: application/json
 
 {
-  "phone": "18990909987"
+  "phone": "18990909907"
 }
 
