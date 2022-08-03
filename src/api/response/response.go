@@ -15,3 +15,7 @@ func GetErrorResponse(code int, data interface{}) *BaseResponse {
 		Data:    data,
 	}
 }
+
+func ToErrorResponse(err constant.StatusError) *BaseResponse {
+	return GetErrorResponse(err.StatusCode(), err)
+}
