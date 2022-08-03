@@ -35,6 +35,7 @@ func WinLottery(c *gin.Context) {
 	if err.IsNotOK() {
 		if err.IsDBError() {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, response.ToErrorResponse(err))
+			return
 		}
 	}
 	c.JSON(http.StatusOK, response.WinLotteryResponse{IsWinLottery: isWinLottery, AwardType: awardType})

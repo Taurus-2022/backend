@@ -20,6 +20,8 @@ const (
 	ErrorDbInnerError
 	// ErrorCreateSignatureFailed 签约失败
 	ErrorCreateSignatureFailed
+	// ErrorHasCreatedSignatureToday 今日已签约
+	ErrorHasCreatedSignatureToday
 	// ErrorConsumeAwardFailed 减库存失败
 	ErrorConsumeAwardFailed
 	// ErrorCreateLotteryFailed 创建抽奖记录失败
@@ -44,6 +46,7 @@ var (
 		ErrorCodeOK:                   "Success",
 		ErrorHttpParamInvalid:         "Http param invalid",
 		ErrorDbInnerError:             "Database inner error",
+		ErrorHasCreatedSignatureToday: "Has created signature today",
 		ErrorCreateSignatureFailed:    "Create new signature failed, maybe it has been created?",
 		ErrorConsumeAwardFailed:       "Consume award failed, please contact administrator.",
 		ErrorCreateLotteryFailed:      "Create lottery failed, please try again later.",

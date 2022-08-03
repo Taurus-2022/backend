@@ -6,7 +6,7 @@ import (
 
 // GetTodayLotteryCountByAwardType 获取今天抽中某种奖的人数
 func GetTodayLotteryCountByAwardType(awardType int) (total int, err error) {
-	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE award_type = ? AND (create_time >=date(now()) and create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))", awardType).Scan(&total)
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE award_type = ? AND (create_time >=date(now()) AND create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))", awardType).Scan(&total)
 	if err != nil {
 		log.Printf("get today lottery count by award type fail, err: %v", err)
 		return 0, err
@@ -16,7 +16,7 @@ func GetTodayLotteryCountByAwardType(awardType int) (total int, err error) {
 
 // GetTodayLotteryAllCount 获取今天抽中奖的人数
 func GetTodayLotteryAllCount() (total int, err error) {
-	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE (award_type = '1' OR award_type = '2' OR award_type = '3') AND (create_time >=date(now()) and create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))").Scan(&total)
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE (award_type = '1' OR award_type = '2' OR award_type = '3') AND (create_time >=date(now()) AND create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))").Scan(&total)
 	if err != nil {
 		log.Printf("get today lottery all count fail, err: %v", err)
 		return 0, err
@@ -25,7 +25,7 @@ func GetTodayLotteryAllCount() (total int, err error) {
 }
 
 func GetTodayLotteryCountByPhone(phone string) (total int, err error) {
-	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE phone = ? AND (create_time >=date(now()) and create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))", phone).Scan(&total)
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE phone = ? AND (create_time >=date(now()) AND create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))", phone).Scan(&total)
 	if err != nil {
 		log.Printf("get today lottery count by phone fail: %v ,err: %v", phone, err)
 		return total, err

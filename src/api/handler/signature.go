@@ -7,6 +7,7 @@ import (
 	"taurus-backend/api/response"
 	"taurus-backend/constant"
 	"taurus-backend/db"
+	"taurus-backend/logic"
 )
 
 func CreateSignature(c *gin.Context) {
@@ -14,6 +15,15 @@ func CreateSignature(c *gin.Context) {
 	err := c.ShouldBindJSON(r)
 	if err != nil {
 		c.AbortWithStatusJSON(400, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
+		return
+	}
+	isSigned, err := logic.GetTodayUserIsSigned(r.Phone)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
+		return
+	}
+	if isSigned {
+		c.AbortWithStatusJSON(http.StatusBadRequest, response.GetErrorResponse(constant.ErrorHasCreatedSignatureToday, nil))
 		return
 	}
 	err = db.CreateSignature(r.Phone, r.Street)
@@ -45,17 +55,17 @@ func GetSignatureCount(c *gin.Context) {
 	c.JSON(http.StatusOK, &response.GetSignatureCountResponse{Count: total})
 }
 
-func GetUserIsSigned(c *gin.Context) {
+func GetTodayUserIsSigned(c *gin.Context) {
 	r := &request.GetUserIsSignedRequest{}
 	err := c.ShouldBindQuery(r)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	total, err := db.GetSignatureCountByPhone(r.Phone)
+	isSigned, err := logic.GetTodayUserIsSigned(r.Phone)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
 		return
 	}
-	c.JSON(http.StatusOK, &response.GetUserIsSignedResponse{IsSigned: total > 0})
+	c.JSON(http.StatusOK, &response.GetUserIsSignedResponse{IsSigned: isSigned})
 }

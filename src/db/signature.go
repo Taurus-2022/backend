@@ -2,8 +2,8 @@ package db
 
 import "log"
 
-func GetSignatureCountByPhone(phone string) (total int, err error) {
-	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM signature WHERE phone = ?", phone).Scan(&total)
+func GetTodaySignatureCountByPhone(phone string) (total int, err error) {
+	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM signature WHERE phone = ? AND (create_time >=date(now()) AND create_time < DATE_ADD(date(now()),INTERVAL 1 DAY))", phone).Scan(&total)
 	if err != nil {
 		log.Printf("get count signature by phone fail: %v ,err: %v", phone, err)
 		return total, err
