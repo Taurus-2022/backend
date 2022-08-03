@@ -16,17 +16,17 @@ func GetLotteryChance(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, response.GetErrorResponse(constant.ErrorHttpParamInvalid, err.Error()))
 		return
 	}
-	total, err := db.GetWinLotteryCountByPhone(req.Phone)
+	hasWinLottery, err := db.HasWinLottery(req.Phone)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
 		return
 	}
-	if total > 0 {
+	if hasWinLottery {
 		// 中过奖
 		c.JSON(http.StatusOK, &response.GetLotteryChanceResponse{CanParticipateLottery: false, HasWinLottery: true})
 		return
 	}
-	total, err = db.GetTodayLotteryCountByPhone(req.Phone)
+	total, err := db.GetTodayLotteryCountByPhone(req.Phone)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, response.GetErrorResponse(constant.ErrorDbInnerError, err.Error()))
 		return

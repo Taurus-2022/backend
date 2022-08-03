@@ -33,13 +33,14 @@ func GetTodayLotteryCountByPhone(phone string) (total int, err error) {
 	return total, nil
 }
 
-func GetWinLotteryCountByPhone(phone string) (total int, err error) {
+func HasWinLottery(phone string) (hasWinLottery bool, err error) {
+	var total int
 	err = GetDB().QueryRow("SELECT COUNT(*) AS total FROM lottery WHERE phone = ? AND award_type != 0", phone).Scan(&total)
 	if err != nil {
 		log.Printf("get today lottery count by phone fail: %v ,err: %v", phone, err)
-		return total, err
+		return false, err
 	}
-	return total, nil
+	return total > 0, nil
 }
 
 func CreateLottery(phone string, isWinLottery bool, awardType int, awardCode string) (err error) {
