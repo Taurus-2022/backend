@@ -2,6 +2,8 @@ package main
 
 import (
 	"log"
+	"os"
+	"os/signal"
 	"taurus-backend/app"
 )
 
@@ -18,4 +20,11 @@ func main() {
 	taurus.Run()
 	log.Println("App start handle async task...")
 	taurus.HandleAsyncTask()
+
+	quit := make(chan os.Signal)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
+	log.Println("Server force shutdown...")
+	close(quit)
+	os.Exit(1)
 }

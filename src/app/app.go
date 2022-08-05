@@ -59,8 +59,7 @@ func (a *App) Init() {
 	}
 	a.db = dbHandler
 
-	smsClient := sms.NewSMSClient()
-	smsClient.Init(e)
+	smsClient := sms.Init(e)
 	a.client = smsClient
 
 	if "prod" == e.Stage {

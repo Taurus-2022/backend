@@ -28,6 +28,8 @@ func SendLotteryMessage(phone string, awardType int, awardCode string) error {
 func LoopAndResend() {
 	log.Println("loopAndResend failed message start")
 	for {
+		log.Println("Pull task after 30s ...")
+		time.Sleep(time.Second * 30)
 		tasks, err := db.GetAllFailedSMSTask()
 		if err != nil {
 			log.Println("get all failed sms task error:", err)
@@ -43,6 +45,5 @@ func LoopAndResend() {
 			}
 		}
 		log.Println("loopAndResend failed message success")
-		time.Sleep(time.Second * 5)
 	}
 }

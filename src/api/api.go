@@ -24,10 +24,11 @@ func (s *Server) Init() {
 
 func (s *Server) Run() {
 	// Web Func硬性要求
-	err := s.srv.Run("0.0.0.0:9000")
+	go func() {
+		err := s.srv.Run("0.0.0.0:9000")
+		if err != nil {
+			log.Fatal("server run fail", err)
+		}
+	}()
 	log.Println("server starting...")
-	if err != nil {
-		log.Fatal("setup server fatal:", err)
-		return
-	}
 }

@@ -56,12 +56,14 @@ func UpdateSmsStatusWithLock(task *sms.Task) error {
 		}
 	}()
 
-	err = tx.QueryRow("SELECT phone, award_type, award_code FROM sms WHERE phone = ? AND is_sms_sent = ? FOR UPDATE", task.Phone, constant.SmsSendStatusFail).Scan()
+	var serialNo string
+	err = tx.QueryRow("SELECT serial_no FROM sms WHERE phone = ? AND is_sms_sent = ? FOR UPDATE", task.Phone, constant.SmsSendStatusFail).Scan(&serialNo)
+
 	if err != nil {
 		log.Println("lock sms record fail or can not find this failed task, err: ", err)
 		return err
 	}
-	serialNo, err := sms.GetSMSClient().SendSMS(task.Phone, task.AwardType, task.AwardCode)
+	serialNo, err = sms.GetSMSClient().SendSMS(task.Phone, task.AwardType, task.AwardCode)
 	if err != nil {
 		log.Println("send sms fail, err: ", err)
 		return err

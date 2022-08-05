@@ -13,12 +13,9 @@ import (
 )
 
 var client *Client
-var once *sync.Once
+var once sync.Once
 
 func GetSMSClient() *Client {
-	once.Do(func() {
-		client = NewSMSClient()
-	})
 	return client
 }
 
@@ -44,26 +41,24 @@ func CheckSmsEnv() {
 	}
 }
 
-func NewSMSClient() *Client {
+func Init(e *constant.Env) *Client {
 	c := &Client{}
-	return c
-}
-
-func (c *Client) Init(e *constant.Env) {
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "sms.tencentcloudapi.com"
 	cpf.NetworkFailureMaxRetries = 3
 	cpf.NetworkFailureRetryDuration = profile.ConstantDurationFunc(5)
 
 	credential := common.NewCredential(e.SecretId, e.SecretKey)
-	client, err := sms.NewClient(credential, "ap-guangzhou", cpf)
+	smsClient, err := sms.NewClient(credential, "ap-guangzhou", cpf)
 	if err != nil {
-		log.Fatalln("NewSMSClient error:", err)
-		return
+		log.Fatalln("InitSMSClient error:", err)
+		return nil
 	}
 	c.profile = cpf
-	c.session = client
+	c.session = smsClient
 	c.credential = credential
+	client = c
+	return c
 }
 
 func (c *Client) SendSMS(phone string, awardType int, awardCode string) (smsSerialNo string, err error) {

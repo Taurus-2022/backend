@@ -20,7 +20,8 @@ func Init(e *constant.Env) (*sql.DB, error) {
 		return nil, err
 	}
 	dbHandler.SetConnMaxLifetime(100)
-	dbHandler.SetMaxIdleConns(10)
+	dbHandler.SetMaxIdleConns(50)
+	dbHandler.SetMaxOpenConns(100)
 	db = dbHandler
 	return db, nil
 }
