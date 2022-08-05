@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"taurus-backend/constant"
 	"taurus-backend/db"
+	"taurus-backend/sms"
 	"time"
 )
 
@@ -46,7 +47,7 @@ func WinLottery(phone string) (isWinLottery bool, awardType int, err constant.St
 			return isWinLottery, awardType, constant.NewOKStatusError()
 		}
 		// db 处理失败 转为未中奖
-		log.Printf("win but consume award lottery fail, err: %v", err)
+		log.Printf("win but consume award lottery fail, err: %v", dbError)
 		isWinLottery = false
 		awardType = constant.NONE
 	}
@@ -149,7 +150,12 @@ func CreateAwardLottery(phone string, isWinLottery bool, awardType int) error {
 		return err
 	}
 	go func(phone string, awardType int, awardCode string) {
-		err := SendLotteryMessage(phone, awardType, awardCode)
+		task := &sms.Task{
+			Phone:     phone,
+			AwardType: awardType,
+			AwardCode: awardCode,
+		}
+		err := db.UpdateSmsStatusWithLock(task)
 		if err != nil {
 			log.Printf("send lottery message fail, err: %v", err)
 		}

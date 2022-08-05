@@ -2,18 +2,17 @@ package sms
 
 import (
 	"errors"
+	"fmt"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	terrors "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 	"log"
 	"os"
-	"sync"
 	"taurus-backend/constant"
 )
 
 var client *Client
-var once sync.Once
 
 func GetSMSClient() *Client {
 	return client
@@ -79,7 +78,7 @@ func (c *Client) SendSMS(phone string, awardType int, awardCode string) (smsSeri
 	}
 	sendStatus := resp.Response.SendStatusSet[0]
 	if *sendStatus.Code != "Ok" || *resp.Response.SendStatusSet[0].SerialNo == "" {
-		return "", errors.New("send sms fail, code is not ok or serial no is empty")
+		return "", errors.New(fmt.Sprintf("send sms fail, code: %v, phone: %v", *sendStatus.Code, phone))
 	}
 	return *resp.Response.SendStatusSet[0].SerialNo, nil
 }

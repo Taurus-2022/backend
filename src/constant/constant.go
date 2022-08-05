@@ -10,6 +10,8 @@ const (
 	// DIDI 青桔单车
 	DIDI
 
+	// SmsSendStatusNotSend 短信未发送
+	SmsSendStatusNotSend = 0
 	// SmsSendStatusFail 短信发送失败
 	SmsSendStatusFail = 0
 	// SmsSendStatusSuccess 短信发送成功

@@ -2,6 +2,7 @@ package db
 
 import (
 	"log"
+	"taurus-backend/constant"
 )
 
 // GetTodayLotteryCountByAwardType 获取今天抽中某种奖的人数
@@ -89,6 +90,11 @@ func CreateAwardLottery(phone string, isWinLottery bool, awardType int) (string,
 		}
 	}
 	_, err = tx.Exec("INSERT INTO lottery (phone, is_win_lottery, award_type, award_code) VALUES (?, ?, ?, ?)", phone, isWinLottery, awardType, awardCode)
+	if err != nil {
+		_ = tx.Rollback()
+		return "", err
+	}
+	_, err = tx.Exec("INSERT INTO sms (phone, award_type, award_code, is_sms_sent, serial_no) VALUES (?, ?, ?, ?, uuid())", phone, awardType, awardCode, constant.SmsSendStatusNotSend)
 	if err != nil {
 		_ = tx.Rollback()
 		return "", err

@@ -8,15 +8,6 @@ import (
 	"taurus-backend/sms"
 )
 
-func CreateSms(phone string, awardType int, awardCode string, status int, serialNo string) (err error) {
-	_, err = GetDB().Exec("INSERT INTO sms (phone, award_type, award_code, is_sms_sent, serial_no) VALUES (?, ?, ?, ?, ?)", phone, awardType, awardCode, status, serialNo)
-	if err != nil {
-		log.Println("create sms fail, err: ", err)
-		return err
-	}
-	return nil
-}
-
 func GetAllFailedSMSTask() (tasks []*sms.Task, err error) {
 	rows, err := GetDB().Query("SELECT phone, award_type, award_code FROM sms WHERE is_sms_sent = ?", constant.SmsSendStatusFail)
 	if err != nil {
@@ -49,12 +40,7 @@ func UpdateSmsStatusWithLock(task *sms.Task) error {
 		log.Println("begin transaction fail, err: ", err)
 		return err
 	}
-	defer func() {
-		err := tx.Rollback()
-		if err != nil {
-			log.Println("rollback transaction fail, err: ", err)
-		}
-	}()
+	defer tx.Rollback()
 
 	var serialNo string
 	err = tx.QueryRow("SELECT serial_no FROM sms WHERE phone = ? AND is_sms_sent = ? FOR UPDATE", task.Phone, constant.SmsSendStatusFail).Scan(&serialNo)
