@@ -98,7 +98,7 @@ func getTemplateParamSet(awardType int, code string) []*string {
 	case constant.TENCENT:
 		paramSet = common.StringPtrs([]string{"腾讯视频月卡", code, "腾讯视频App"})
 	case constant.DIDI:
-		paramSet = common.StringPtrs([]string{"腾讯视频周卡", code, "青桔单车APP/小程序"})
+		paramSet = common.StringPtrs([]string{"青桔单车周卡", code, "青桔单车APP/小程序"})
 	default:
 	}
 	return paramSet
