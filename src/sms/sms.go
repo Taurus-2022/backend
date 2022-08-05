@@ -2,15 +2,14 @@ package sms
 
 import (
 	"errors"
-	"log"
-	"os"
-	"sync"
-	"taurus-backend/constant"
-
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	terrors "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
+	"log"
+	"os"
+	"sync"
+	"taurus-backend/constant"
 )
 
 var client *Client
@@ -27,6 +26,12 @@ type Client struct {
 	session    *sms.Client
 	credential *common.Credential
 	profile    *profile.ClientProfile
+}
+
+type Task struct {
+	Phone     string
+	AwardType int
+	AwardCode string
 }
 
 func CheckSmsEnv() {

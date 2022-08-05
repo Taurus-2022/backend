@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"taurus-backend/constant"
 	"taurus-backend/db"
-	"taurus-backend/sms"
 	"time"
 )
 
@@ -165,21 +164,4 @@ func HasWinLottery(phone string) (bool, error) {
 		return false, err
 	}
 	return total > 0, nil
-}
-
-func SendLotteryMessage(phone string, awardType int, awardCode string) error {
-	serialNo, err := sms.GetSMSClient().SendSMS(phone, awardType, awardCode)
-	var smsSendStatus int
-	if err != nil {
-		log.Println("send sms fail, err: ", err)
-		smsSendStatus = constant.SmsSendStatusFail
-	} else {
-		smsSendStatus = constant.SmsSendStatusSuccess
-	}
-	err = db.CreateSms(phone, awardType, awardCode, smsSendStatus, serialNo)
-	if err != nil {
-		log.Println("create sms record fail, err: ", err)
-		return err
-	}
-	return nil
 }

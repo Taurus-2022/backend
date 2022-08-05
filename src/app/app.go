@@ -7,6 +7,7 @@ import (
 	"taurus-backend/api"
 	"taurus-backend/constant"
 	"taurus-backend/db"
+	"taurus-backend/logic"
 	"taurus-backend/sms"
 
 	"github.com/gin-gonic/gin"
@@ -70,4 +71,9 @@ func (a *App) Init() {
 func (a *App) Run() {
 	log.Println("App run...")
 	a.srv.Run()
+}
+
+func (a *App) HandleAsyncTask() {
+	log.Println("App handle async task...")
+	go logic.LoopAndResend()
 }

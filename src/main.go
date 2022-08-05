@@ -13,6 +13,9 @@ func init() {
 }
 
 func main() {
+	taurus := app.GetApp()
 	log.Println("App start...")
-	app.GetApp().Run()
+	taurus.Run()
+	log.Println("App start handle async task...")
+	taurus.HandleAsyncTask()
 }
