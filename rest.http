@@ -18,6 +18,8 @@ Content-Type: application/json
 }
 
 ### 获取签名人数
+# 带街道参数，返回街道人数
+# 不带街道参数，返回全部人数
 GET {{baseUrl}}/signatures/count?street=大虫街道
 
 # 响应示例：
