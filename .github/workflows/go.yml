@@ -46,7 +46,7 @@ jobs:
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
           # repository secrets
           VPC_ID: ${{ secrets.VPC_ID }}
-          # envirmonent secrets
+          # environment secrets
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -55,6 +55,12 @@ jobs:
           SUBNET_ID: ${{ secrets.SUBNET_ID }}
           API_GW_SERVICE_NAME: ${{ secrets.API_GW_SERVICE_NAME }}
           API_GW_SERVICE_ID: ${{ secrets.API_GW_SERVICE_ID }}
+          # business secrets
+          MULTIPLE: ${{ secrets.MULTIPLE }}
+          SMS_SDK_APP_ID: ${{ secrets.SMS_SDK_APP_ID }}
+          SMS_SIGN_NAME: ${{ secrets.SMS_SIGN_NAME }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+
 
   deploy-prod:
     runs-on: ubuntu-latest
@@ -93,3 +99,9 @@ jobs:
           SUBNET_ID: ${{ secrets.SUBNET_ID }}
           API_GW_SERVICE_NAME: ${{ secrets.API_GW_SERVICE_NAME }}
           API_GW_SERVICE_ID: ${{ secrets.API_GW_SERVICE_ID }}
+          # business secrets
+          MULTIPLE: ${{ secrets.MULTIPLE }}
+          SMS_SDK_APP_ID: ${{ secrets.SMS_SDK_APP_ID }}
+          SMS_SIGN_NAME: ${{ secrets.SMS_SIGN_NAME }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+

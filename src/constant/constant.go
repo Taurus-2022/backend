@@ -16,9 +16,9 @@ const (
 	DIDI
 
 	// SmsSendStatusFail 短信发送失败
-	SmsSendStatusFail = 0 + iota
+	SmsSendStatusFail = 0
 	// SmsSendStatusSuccess 短信发送成功
-	SmsSendStatusSuccess
+	SmsSendStatusSuccess = 1
 
 	ErrorCodeOK           = 0
 	ErrorHttpParamInvalid = 1000 + iota

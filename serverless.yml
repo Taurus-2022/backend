@@ -21,6 +21,12 @@ inputs:
       DB_USER: ${env:DB_USER}
       DB_PASSWORD: ${env:DB_PASSWORD}
       DB_NAME: ${env:DB_NAME}
+      MULTIPLE: ${env:MULTIPLE}
+      SMS_SDK_APP_ID: ${env:SMS_SDK_APP_ID}
+      SMS_SIGN_NAME: ${env:SMS_SIGN_NAME}
+      TEMPLATE_ID: ${env:TEMPLATE_ID}
+      TENCENT_SECRET_ID: ${env:TENCENT_SECRET_ID}
+      TENCENT_SECRET_KEY: ${env:TENCENT_SECRET_KEY}
   vpcConfig:
     vpcId: ${env:VPC_ID}
     subnetId: ${env:SUBNET_ID}

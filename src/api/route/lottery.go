@@ -11,5 +11,5 @@ func getLotteriesRoutes() *NodeRoute {
 		NewRoute(constant.HTTPMethodPost, "", handler.WinLottery),
 	}
 
-	return NewNodeRoute("lotteries", routers...)
+	return NewNodeRoute("/lotteries", routers...)
 }

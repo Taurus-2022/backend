@@ -34,8 +34,8 @@ type Client struct {
 }
 
 func CheckSmsEnv() {
-	if os.Getenv("SECRET_ID") == "" ||
-		os.Getenv("SECRET_KEY") == "" ||
+	if os.Getenv("TENCENT_SECRET_ID") == "" ||
+		os.Getenv("TENCENT_SECRET_KEY") == "" ||
 		os.Getenv("SMS_SDK_APP_ID") == "" ||
 		os.Getenv("SMS_SIGN_NAME") == "" ||
 		os.Getenv("TEMPLATE_ID") == "" {

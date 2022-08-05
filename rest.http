@@ -28,7 +28,7 @@ GET {{baseUrl}}/signatures/count?street=大虫街道
 #}
 
 ### 获取能否参与抽奖
-GET {{baseUrl}}/lotteries/chance?phone=18990909987
+GET {{baseUrl}}/lotteries/chance?phone=18019
 
 # 响应示例：
 #{
@@ -46,6 +46,6 @@ POST {{baseUrl}}/lotteries
 Content-Type: application/json
 
 {
-  "phone": "18990909907"
+  "phone": "17723647"
 }
 
