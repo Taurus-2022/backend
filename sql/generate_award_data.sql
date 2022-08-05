@@ -1,6 +1,6 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insert_current_data_uuid $$
-CREATE PROCEDURE insert_award_data_uuid(IN item INTEGER)
+CREATE PROCEDURE insert_award_data(IN item INTEGER)
 BEGIN
     DECLARE counter INT;
     SET counter = item;
@@ -11,8 +11,8 @@ BEGIN
             VALUES (replace(uuid(), '-', ''), floor(1 + rand() * 3), 0);
             SET counter = counter - 1;
         END WHILE;
-    COMMIT;
+    COMMIT ;
 END
 $$
 
-CALL insert_award_data_uuid(1000);
+CALL insert_award_data(1000);
