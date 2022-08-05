@@ -11,6 +11,7 @@ CREATE TABLE `award`
     `deleted`     TINYINT(1)            DEFAULT 0 COMMENT '是否被删除',
     `delete_time` DATETIME              DEFAULT NULL COMMENT '删除时间',
 
-    UNIQUE KEY `idx_code` (code) using BTREE
+    UNIQUE KEY `idx_code` (code) using BTREE,
+    KEY `idx_type_is_used` (`type`, `is_used`) using BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
