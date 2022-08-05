@@ -49,7 +49,7 @@ func (a *App) Init() {
 	a.env = e
 
 	srv := api.NewServer()
-	srv.Init(e)
+	srv.Init()
 	a.srv = srv
 
 	dbHandler, err := db.Init(e)

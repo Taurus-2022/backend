@@ -1,11 +1,9 @@
 package api
 
 import (
+	"github.com/gin-gonic/gin"
 	"log"
 	"taurus-backend/api/route"
-	"taurus-backend/constant"
-
-	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
@@ -17,7 +15,7 @@ func NewServer() *Server {
 	return a
 }
 
-func (s *Server) Init(e *constant.Env) {
+func (s *Server) Init() {
 	gin.DefaultWriter = log.Writer()
 	r := gin.Default()
 	route.InitAllRouters(r)
