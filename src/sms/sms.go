@@ -8,16 +8,32 @@ import (
 	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 	"log"
 	"os"
+	"sync"
 	"taurus-backend/constant"
 )
 
+var client *Client
+var once sync.Once
+
+func init() {
+	CheckSmsEnv()
+	client = NewSMSClient()
+}
+
+func GetSMSClient() *Client {
+	once.Do(func() {
+		client = NewSMSClient()
+	})
+	return client
+}
+
 type Client struct {
-	client     *sms.Client
+	session    *sms.Client
 	credential *common.Credential
 	profile    *profile.ClientProfile
 }
 
-func (c *Client) CheckSmsEnv() {
+func CheckSmsEnv() {
 	if os.Getenv("SECRET_ID") == "" ||
 		os.Getenv("SECRET_KEY") == "" ||
 		os.Getenv("SMS_SDK_APP_ID") == "" ||
@@ -27,10 +43,18 @@ func (c *Client) CheckSmsEnv() {
 	}
 }
 
+func NewSMSClient() *Client {
+	c := &Client{}
+	c.Init()
+	return c
+}
+
 func (c *Client) Init() {
 	secretId, secretKey := os.Getenv("SECRET_ID"), os.Getenv("SECRET_KEY")
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "sms.tencentcloudapi.com"
+	cpf.NetworkFailureMaxRetries = 3
+	cpf.NetworkFailureRetryDuration = profile.ConstantDurationFunc(5)
 
 	credential := common.NewCredential(secretId, secretKey)
 	client, err := sms.NewClient(credential, "ap-guangzhou", cpf)
@@ -39,7 +63,7 @@ func (c *Client) Init() {
 		return
 	}
 	c.profile = cpf
-	c.client = client
+	c.session = client
 	c.credential = credential
 }
 
@@ -51,7 +75,7 @@ func (c *Client) SendSMS(phone string, awardType int, awardCode string) (smsSeri
 	req.TemplateId = common.StringPtr(os.Getenv("TEMPLATE_ID"))
 	req.TemplateParamSet = getTemplateParamSet(awardType, awardCode)
 
-	resp, err := c.client.SendSms(req)
+	resp, err := c.session.SendSms(req)
 	if _, ok := err.(*terrors.TencentCloudSDKError); ok {
 		log.Printf("An API error has returned: %s", err)
 		return

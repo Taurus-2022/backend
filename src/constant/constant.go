@@ -15,6 +15,11 @@ const (
 	// DIDI 青桔单车
 	DIDI
 
+	// SmsSendStatusFail 短信发送失败
+	SmsSendStatusFail = 0 + iota
+	// SmsSendStatusSuccess 短信发送成功
+	SmsSendStatusSuccess
+
 	ErrorCodeOK           = 0
 	ErrorHttpParamInvalid = 1000 + iota
 	ErrorDbInnerError

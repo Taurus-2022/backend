@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"taurus-backend/constant"
 	"taurus-backend/db"
+	"taurus-backend/sms"
 	"time"
 )
 
@@ -142,21 +143,43 @@ func GetCanDoLottery(phone string) (errCode int) {
 	return constant.ErrorCodeOK
 }
 
+// CreateAwardLottery 用户中奖处理
 func CreateAwardLottery(phone string, isWinLottery bool, awardType int) error {
 	awardCode, err := db.CreateAwardLottery(phone, isWinLottery, awardType)
 	if err != nil {
 		return err
 	}
-	go func(code string) {
-		// TODO 异步发送短信
-	}(awardCode)
+	go func(phone string, awardType int, awardCode string) {
+		err := SendLotteryMessage(phone, awardType, awardCode)
+		if err != nil {
+			log.Printf("send lottery message fail, err: %v", err)
+		}
+	}(phone, awardType, awardCode)
 	return nil
 }
 
+// HasWinLottery 是否已经中奖过
 func HasWinLottery(phone string) (bool, error) {
 	total, err := db.GetWinLotteryCountByPhone(phone)
 	if err != nil {
 		return false, err
 	}
 	return total > 0, nil
+}
+
+func SendLotteryMessage(phone string, awardType int, awardCode string) error {
+	serialNo, err := sms.GetSMSClient().SendSMS(phone, awardType, awardCode)
+	var smsSendStatus int
+	if err != nil {
+		log.Println("send sms fail, err: ", err)
+		smsSendStatus = constant.SmsSendStatusFail
+	} else {
+		smsSendStatus = constant.SmsSendStatusSuccess
+	}
+	err = db.CreateSms(phone, awardType, awardCode, smsSendStatus, serialNo)
+	if err != nil {
+		log.Println("create sms record fail, err: ", err)
+		return err
+	}
+	return nil
 }
