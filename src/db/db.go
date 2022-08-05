@@ -2,44 +2,32 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
-	"github.com/joho/godotenv"
+
 	"log"
-	"os"
 	"taurus-backend/constant"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
-	dbHost     string
-	dbPort     string
-	dbUser     string
-	dbPassword string
-	dbName     string
-	db         *sql.DB
+	db *sql.DB
 )
 
-func init() {
-	if constant.LocalStage == os.Getenv(constant.Stage) {
-		err := godotenv.Load("../.env")
-		if err != nil {
-			log.Fatal("get local env err:", err)
-		}
-	}
-	dbHost = os.Getenv("DB_HOST")
-	dbPort = os.Getenv("DB_PORT")
-	dbUser = os.Getenv("DB_USER")
-	dbPassword = os.Getenv("DB_PASSWORD")
-	dbName = os.Getenv("DB_NAME")
-	dbHandler, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName))
+func Init(e *constant.Env) (*sql.DB, error) {
+	dbHandler, err := sql.Open("mysql", e.GetDBConnectString())
 	if err != nil {
-		log.Fatal("dbHandler handler open fail", err)
+		log.Println("dbHandler handler open fail", err)
+		return nil, err
 	}
-	//设置数据库最大连接数
 	dbHandler.SetConnMaxLifetime(100)
 	dbHandler.SetMaxIdleConns(10)
 	db = dbHandler
+	return db, nil
 }
 
 func GetDB() *sql.DB {
+	if db == nil {
+		log.Fatal("db is nil")
+	}
 	return db
 }

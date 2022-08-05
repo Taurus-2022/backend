@@ -1,11 +1,6 @@
 package constant
 
 const (
-	Stage      string = "stage"
-	LocalStage string = ""
-)
-
-const (
 	// NONE 未中奖
 	NONE = 0 + iota
 	// MEITUAN 美团

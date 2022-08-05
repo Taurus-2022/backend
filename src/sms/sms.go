@@ -2,23 +2,19 @@ package sms
 
 import (
 	"errors"
-	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-	terrors "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
-	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
-	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 	"log"
 	"os"
 	"sync"
 	"taurus-backend/constant"
+
+	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
+	terrors "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
+	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+	sms "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/sms/v20210111"
 )
 
 var client *Client
-var once sync.Once
-
-func init() {
-	CheckSmsEnv()
-	client = NewSMSClient()
-}
+var once *sync.Once
 
 func GetSMSClient() *Client {
 	once.Do(func() {
@@ -34,8 +30,8 @@ type Client struct {
 }
 
 func CheckSmsEnv() {
-	if os.Getenv("TENCENT_SECRET_ID") == "" ||
-		os.Getenv("TENCENT_SECRET_KEY") == "" ||
+	if os.Getenv("SECRET_ID") == "" ||
+		os.Getenv("SECRET_KEY") == "" ||
 		os.Getenv("SMS_SDK_APP_ID") == "" ||
 		os.Getenv("SMS_SIGN_NAME") == "" ||
 		os.Getenv("TEMPLATE_ID") == "" {
@@ -45,18 +41,16 @@ func CheckSmsEnv() {
 
 func NewSMSClient() *Client {
 	c := &Client{}
-	c.Init()
 	return c
 }
 
-func (c *Client) Init() {
-	secretId, secretKey := os.Getenv("SECRET_ID"), os.Getenv("SECRET_KEY")
+func (c *Client) Init(e *constant.Env) {
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.Endpoint = "sms.tencentcloudapi.com"
 	cpf.NetworkFailureMaxRetries = 3
 	cpf.NetworkFailureRetryDuration = profile.ConstantDurationFunc(5)
 
-	credential := common.NewCredential(secretId, secretKey)
+	credential := common.NewCredential(e.SecretId, e.SecretKey)
 	client, err := sms.NewClient(credential, "ap-guangzhou", cpf)
 	if err != nil {
 		log.Fatalln("NewSMSClient error:", err)

@@ -15,7 +15,7 @@ inputs:
   # ignoreTriggers: true
   environment:
     variables: #  环境变量对象
-      stage: ${stage}
+      STAGE: ${stage}
       DB_HOST: ${env:DB_HOST}
       DB_PORT: ${env:DB_PORT}
       DB_USER: ${env:DB_USER}
@@ -25,8 +25,8 @@ inputs:
       SMS_SDK_APP_ID: ${env:SMS_SDK_APP_ID}
       SMS_SIGN_NAME: ${env:SMS_SIGN_NAME}
       TEMPLATE_ID: ${env:TEMPLATE_ID}
-      TENCENT_SECRET_ID: ${env:TENCENT_SECRET_ID}
-      TENCENT_SECRET_KEY: ${env:TENCENT_SECRET_KEY}
+      SECRET_ID: ${env:TENCENT_SECRET_ID}
+      SECRET_KEY: ${env:TENCENT_SECRET_KEY}
   vpcConfig:
     vpcId: ${env:VPC_ID}
     subnetId: ${env:SUBNET_ID}

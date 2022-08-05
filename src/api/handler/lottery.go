@@ -1,13 +1,14 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"taurus-backend/api/request"
 	"taurus-backend/api/response"
 	"taurus-backend/constant"
 	"taurus-backend/db"
 	"taurus-backend/logic"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetLotteryChance(c *gin.Context) {
