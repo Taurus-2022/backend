@@ -4,6 +4,7 @@ GET {{baseUrl}}/ping
 
 
 ### 查询今天是否已经签名
+# 响应示例 	{"isSigned":false} 
 GET {{baseUrl}}/signatures/status?phone=18019066767
 
 ### 创建签名
