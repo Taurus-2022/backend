@@ -2,11 +2,6 @@
 ### 心跳包
 GET {{baseUrl}}/ping
 
-
-### 查询今天是否已经签名
-# 响应示例 	{"isSigned":false} 
-GET {{baseUrl}}/signatures/status?phone=18019066767
-
 ### 创建签名
 # 创建请求不返回任何值，请根据状态码判断是否成功
 # @no-redirect
@@ -14,7 +9,6 @@ POST {{baseUrl}}/signatures
 Content-Type: application/json
 
 {
-  "phone": "18019066767",
   "street": "大虫街道"
 }
 
@@ -27,26 +21,3 @@ GET {{baseUrl}}/signatures/count?street=大虫街道
 #{
 #    "count": 100
 #}
-
-### 获取能否参与抽奖
-GET {{baseUrl}}/lotteries/chance?phone=18019
-
-# 响应示例：
-#{
-#  "canParticipateLottery": true,
-#  "hasWinLottery": false
-#}
-
-### 抽奖
-# 响应示例：
-#{
-#  "isWinLottery": true,
-#  "awardType": 0
-#}
-POST {{baseUrl}}/lotteries
-Content-Type: application/json
-
-{
-  "phone": "13338789134"
-}
-

@@ -2,15 +2,12 @@ package app
 
 import (
 	"database/sql"
+	"github.com/gin-gonic/gin"
 	"log"
 	"sync"
 	"taurus-backend/api"
 	"taurus-backend/constant"
 	"taurus-backend/db"
-	"taurus-backend/logic"
-	"taurus-backend/sms"
-
-	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -19,10 +16,9 @@ var (
 )
 
 type App struct {
-	srv    *api.Server
-	env    *constant.Env
-	client *sms.Client
-	db     *sql.DB
+	srv *api.Server
+	env *constant.Env
+	db  *sql.DB
 }
 
 func GetApp() *App {
@@ -35,7 +31,6 @@ func GetApp() *App {
 
 func (a *App) Check() {
 	log.Println("App checking...")
-	sms.CheckSmsEnv()
 
 	if err := a.db.Ping(); err != nil {
 		log.Fatal("open database fail")
@@ -59,9 +54,6 @@ func (a *App) Init() {
 	}
 	a.db = dbHandler
 
-	smsClient := sms.Init(e)
-	a.client = smsClient
-
 	if "prod" == e.Stage {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -70,9 +62,4 @@ func (a *App) Init() {
 func (a *App) Run() {
 	log.Println("App run...")
 	a.srv.Run()
-}
-
-func (a *App) HandleAsyncTask() {
-	log.Println("App handle async task...")
-	go logic.LoopAndResend()
 }

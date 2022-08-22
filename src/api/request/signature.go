@@ -5,7 +5,6 @@ type GetSignatureCountRequest struct {
 }
 
 type CreateSignatureCountRequest struct {
-	Phone  string `json:"phone" binding:"required"`
 	Street string `json:"street" binding:"required"`
 }
 
