@@ -10,7 +10,7 @@ inputs:
   runtime: Go1
   namespace: default
   region: ap-guangzhou
-  memorySize: 512
+  memorySize: 128
   timeout: 3
   # ignoreTriggers: true
   environment:
