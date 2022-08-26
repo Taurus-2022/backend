@@ -44,6 +44,10 @@ func (a *App) Init() {
 	e.Init()
 	a.env = e
 
+	if "prod" == e.Stage {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	srv := api.NewServer()
 	srv.Init()
 	a.srv = srv
@@ -53,10 +57,6 @@ func (a *App) Init() {
 		log.Fatal("db open fail", err)
 	}
 	a.db = dbHandler
-
-	if "prod" == e.Stage {
-		gin.SetMode(gin.ReleaseMode)
-	}
 }
 
 func (a *App) Run() {
